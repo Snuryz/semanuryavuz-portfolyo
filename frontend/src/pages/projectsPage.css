@@ -3,28 +3,6 @@
   margin-bottom: 130px;
 }
 
-.works-count {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 26px;
-  font-family: var(--font-caps);
-  font-size: 0.72rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--cream-muted);
-}
-
-.works-count span:not(.works-count-star) {
-  color: var(--gold);
-}
-
-.works-count-star {
-  margin: 0 8px;
-  font-size: 0.55rem;
-  color: var(--gold-soft);
-}
-
 .works {
   display: flex;
   flex-direction: column;

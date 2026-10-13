@@ -1,11 +1,11 @@
 import './navbar.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { scrollToSection, smoothScrollTo } from '../utils/scroll';
 
 // Ana sayfadaki bölümler (id -> menü adı)
 const LINKS = [
-  { id: 'top', label: 'Portal' },
+  { id: 'top', label: 'Ana Sayfa' },
   { id: 'about', label: 'Hakkımda' },
   { id: 'projects', label: 'Projelerim' },
   { id: 'blog', label: 'Blog' },
@@ -15,6 +15,15 @@ const LINKS = [
 const Navbar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+
+  // Sayfa aşağı kayınca menü ekranın üstüne yapışır ve yarı saydam olur
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const handleClick = (e, id) => {
     e.preventDefault();
@@ -31,7 +40,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="arcane-navbar">
+    <nav className={`arcane-navbar${scrolled ? ' is-scrolled' : ''}`}>
       <ul>
         {LINKS.map(({ id, label }) => (
           <li key={id}>

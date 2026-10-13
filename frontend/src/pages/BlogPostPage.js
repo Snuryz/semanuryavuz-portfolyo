@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import useApi from "../hooks/useApi";
+import usePageMeta from "../hooks/usePageMeta";
 import RichText from "../components/RichText";
+import WorkInfo from "../components/WorkInfo";
 import StatusMessage from "../components/StatusMessage";
 import { formatDate } from "../utils/format";
 import "../styles/pages.css";
@@ -10,6 +12,7 @@ import "./blogPost.css";
 const BlogPostPage = () => {
   const { slug } = useParams();
   const { data: post, loading, error } = useApi(`/posts/${slug}/`);
+  usePageMeta(post?.title, post?.excerpt);
 
   return (
     <div className="page page--blog page--reading">
@@ -23,7 +26,11 @@ const BlogPostPage = () => {
         {post && (
           <article className="post">
             <header className="post-head">
-              {post.category && <span className="section-eyebrow">{post.category}</span>}
+              {post.category && (
+                <Link to={`/blog/kategori/${post.category.slug}`} className="section-eyebrow post-category-link">
+                  {post.category.name}
+                </Link>
+              )}
               <h1 className="section-title">{post.title}</h1>
               <p className="post-meta">
                 <time dateTime={post.published_at}>{formatDate(post.published_at)}</time>
@@ -32,10 +39,14 @@ const BlogPostPage = () => {
               </p>
             </header>
 
-            {post.cover && (
-              <figure className="post-cover">
-                <img src={post.cover} alt="" />
-              </figure>
+            {post.work_title ? (
+              <WorkInfo post={post} />
+            ) : (
+              post.cover && (
+                <figure className="post-cover">
+                  <img src={post.cover} alt="" />
+                </figure>
+              )
             )}
 
             <RichText text={post.content} className="post-body" />

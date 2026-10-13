@@ -1,5 +1,7 @@
 _kullanilmayan_dosyalar/
 .playwright-mcp/
-.env
+/.env
 node_modules/
 __pycache__/
+yayin/
+frontend/public/sitemap.xml

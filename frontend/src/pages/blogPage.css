@@ -335,3 +335,121 @@
     transition: none;
   }
 }
+
+/* Kategori menüsü */
+.category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 36px;
+  margin: -50px auto 90px;
+  padding: 18px 0;
+  max-width: 900px;
+  border-top: 1px solid rgba(191, 167, 106, 0.2);
+  border-bottom: 1px solid rgba(191, 167, 106, 0.2);
+}
+
+.category-link {
+  position: relative;
+  padding: 6px 0;
+  font-family: var(--font-caps);
+  font-size: 0.82rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cream-muted);
+  transition: color 0.3s ease;
+}
+
+.category-link sup {
+  margin-left: 2px;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  color: rgba(191, 167, 106, 0.6);
+}
+
+.category-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: translateX(-50%);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.category-link:hover,
+.category-link.active {
+  color: var(--gold);
+}
+
+.category-link.active::after,
+.category-link:hover::after {
+  width: 100%;
+}
+
+.category-link:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* Kitap / film yazılarında eser satırı */
+.post-work {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin: -6px 0 14px;
+}
+
+.post-work-text {
+  font-family: var(--font-reading);
+  font-size: 0.98rem;
+  color: var(--cream-muted);
+}
+
+.post-work-text em {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--cream);
+}
+
+.featured-body .post-work {
+  margin: -8px 0 18px;
+}
+
+/* Kitap kapağı / film afişi: dikey oran */
+.post-art--work img {
+  object-position: center top;
+}
+
+.post-card .post-art--work {
+  aspect-ratio: 2 / 3;
+}
+
+.post-art--large.post-art--work {
+  aspect-ratio: 2 / 3;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+@media (max-width: 560px) {
+  .category-nav {
+    gap: 6px 22px;
+    margin: -30px auto 60px;
+  }
+
+  .category-link {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+  }
+}
+
+@media (max-width: 560px) {
+  .post-card .post-art--work {
+    width: 150px;
+    aspect-ratio: 2 / 3;
+  }
+}

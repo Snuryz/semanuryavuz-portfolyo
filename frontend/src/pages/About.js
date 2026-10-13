@@ -22,7 +22,7 @@ const About = () => (
       <div className="about-body">
         <p className="about-dropcap">
           Hayata tek bir açıdan bakmam. Bana göre gerçek bilgi bir
-          puzzeldır; yalnızca parçalara ayrılmış ve hayatın farklı köşelerine
+          yapbozdur; yalnızca parçalara ayrılmış ve hayatın farklı köşelerine
           dağılmıştır. Bir yazılımın mantığında, bir
           kitabın satırlarında, bir milletin tarihinde
           bulunup keşfedilebilir. Bu yüzden merakım hiçbir zaman tek bir alanla sınırlı kalmadı; yazılımdan
@@ -30,7 +30,7 @@ const About = () => (
           okumuş, araştırmış ve denemişimdir.
         </p>
         <p>
-          Öğrendiğim her yeni şeyi, bilgi puzzelında ait olduğu yere
+          Öğrendiğim her yeni şeyi, bilgi yapbozunda ait olduğu yere
           yerleştiririm. Parçalar birleştikçe birbirine en uzak görünen
           alanların bile aslında aynı özü konuştuğunu fark ederim: Matematik ile
           müzik,tarih ile yazılım, geçmiş ile gelecek. Zıt görünen şeylerin

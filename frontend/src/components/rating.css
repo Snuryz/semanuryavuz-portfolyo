@@ -1,0 +1,15 @@
+.rating {
+  display: inline-flex;
+  gap: 3px;
+  font-size: 0.8rem;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.rating-on {
+  color: var(--gold);
+}
+
+.rating-off {
+  color: rgba(191, 167, 106, 0.25);
+}

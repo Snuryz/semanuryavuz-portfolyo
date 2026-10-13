@@ -29,10 +29,21 @@ const animateTo = (getTarget, duration = 1200) => {
 
 export const smoothScrollTo = (target, duration) => animateTo(() => target, duration);
 
-/** id'si verilen bölüme kaydırır; bölüm sayfada yoksa false döner. */
+// Bölüm başlığı ekranın tepesine yapışmasın diye üstte bırakılan boşluk
+const HEADING_GAP = 56;
+
+/**
+ * id'si verilen bölümün başlığına kaydırır (bölümlerin üstündeki dekoratif
+ * boşlukları atlar); bölüm sayfada yoksa false döner.
+ */
 export const scrollToSection = (id, duration) => {
-  const el = document.getElementById(id);
-  if (!el) return false;
-  animateTo(() => el.getBoundingClientRect().top + window.scrollY, duration);
+  const section = document.getElementById(id);
+  if (!section) return false;
+  const target = section.querySelector(".section-head, .contact-inner") || section;
+  animateTo(() => {
+    const top = target.getBoundingClientRect().top + window.scrollY - HEADING_GAP;
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    return Math.max(top, sectionTop);
+  }, duration);
   return true;
 };

@@ -18,6 +18,7 @@ function App() {
           <Route path="projects" element={<ProjectsPage />} />
           <Route path="projects/:slug" element={<ProjectDetail />} />
           <Route path="blog" element={<BlogPage />} />
+          <Route path="blog/kategori/:category" element={<BlogPage />} />
           <Route path="blog/:slug" element={<BlogPostPage />} />
           <Route path="contact" element={<Contact />} />
         </Route>

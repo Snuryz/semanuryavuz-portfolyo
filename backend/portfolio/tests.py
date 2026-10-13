@@ -1,6 +1,6 @@
 from rest_framework.test import APITestCase
 
-from .models import BlogPost, ContactMessage, Project
+from .models import BlogPost, Category, ContactMessage, Project
 
 
 class ProjectApiTests(APITestCase):
@@ -44,6 +44,44 @@ class BlogApiTests(APITestCase):
 
         detail = self.client.get(f"/api/posts/{res.data[0]['slug']}/")
         self.assertIn("content", detail.data)
+
+
+class CategoryApiTests(APITestCase):
+    def setUp(self):
+        # Kitaplar / Filmler geçişte oluşturulur
+        self.books = Category.objects.get(slug="kitaplar")
+        self.history = Category.objects.create(name="Tarih")
+        BlogPost.objects.create(
+            title="Kürk Mantolu Madonna Üzerine", excerpt="e", content="c",
+            category=self.books, work_title="Kürk Mantolu Madonna",
+            work_creator="Sabahattin Ali", work_year=1943, rating=5,
+        )
+        BlogPost.objects.create(title="Osmanlı'da Matbaa", excerpt="e", content="c", category=self.history)
+        BlogPost.objects.create(title="Taslak", excerpt="e", content="c", category=self.books, is_published=False)
+
+    def test_new_category_slug_and_counts(self):
+        self.assertEqual(self.history.slug, "tarih")
+        res = self.client.get("/api/categories/")
+        counts = {c["slug"]: c["post_count"] for c in res.data}
+        self.assertEqual(counts["kitaplar"], 1)  # taslak sayılmaz
+        self.assertEqual(counts["filmler"], 0)
+        self.assertEqual(counts["tarih"], 1)
+        books = next(c for c in res.data if c["slug"] == "kitaplar")
+        self.assertEqual(books["creator_label"], "Yazar")
+
+    def test_filter_posts_by_category_with_work_info(self):
+        res = self.client.get("/api/posts/?category=kitaplar")
+        self.assertEqual(len(res.data), 1)
+        post = res.data[0]
+        self.assertEqual(post["category"], {"slug": "kitaplar", "name": "Kitaplar", "creator_label": "Yazar"})
+        self.assertEqual(post["work_creator"], "Sabahattin Ali")
+        self.assertEqual(post["rating"], 5)
+
+    def test_deleting_category_keeps_posts(self):
+        self.history.delete()
+        post = BlogPost.objects.get(title="Osmanlı'da Matbaa")
+        self.assertIsNone(post.category)
+        self.assertEqual(self.client.get(f"/api/posts/{post.slug}/").status_code, 200)
 
 
 class ContactApiTests(APITestCase):

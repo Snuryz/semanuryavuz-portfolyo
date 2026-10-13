@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import useApi from "../hooks/useApi";
+import usePageMeta from "../hooks/usePageMeta";
 import useReveal from "../hooks/useReveal";
 import StatusMessage from "../components/StatusMessage";
 import ScreenshotCascade from "../components/ScreenshotCascade";
@@ -10,6 +11,7 @@ import "./projectsPage.css";
 
 const ProjectsPage = () => {
   const { data: projects, loading, error } = useApi("/projects/");
+  usePageMeta("Projelerim", "Sema Nur Yavuz'un yazılım ve tasarım projeleri.");
   const visible = useMemo(() => projects || [], [projects]);
 
   const techCount = useMemo(

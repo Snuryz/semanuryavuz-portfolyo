@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import api from "../api";
+import { CONTACT_EMAIL, SOCIAL_LINKS } from "../siteConfig";
 import "./contact.css";
 
-const CONTACT_EMAIL = "semanuryavuz636@gmail.com";
-const GITHUB_URL = "https://github.com/";
 
 const initialForm = { name: "", email: "", subject: "", message: "" };
 
@@ -62,12 +61,14 @@ const Contact = () => {
               <span className="detail-label">E-posta</span>
               <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             </li>
-            <li>
-              <span className="detail-label">GitHub</span>
-              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
-                github.com
-              </a>
-            </li>
+            {SOCIAL_LINKS.map((link) => (
+              <li key={link.url}>
+                <span className="detail-label">{link.label}</span>
+                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  {link.url.replace(/^https?:\/\/(www\.)?/, "")}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 

@@ -8,6 +8,15 @@
   font-size: clamp(2.4rem, 5vw, 3.4rem);
 }
 
+.post-category-link {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.post-category-link:hover {
+  color: var(--cream);
+}
+
 .post-meta {
   display: inline-flex;
   align-items: center;

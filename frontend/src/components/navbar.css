@@ -1,14 +1,48 @@
 /* ---------- Üst menü ---------- */
 .arcane-navbar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 100;
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 30px 24px 0;
   background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: padding 0.4s ease, background 0.4s ease, opacity 0.4s ease,
+    border-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+/* Aşağı kaydırınca: ince, yarı saydam şerit; yazılar da silik ve hafif bulanık */
+.arcane-navbar.is-scrolled {
+  padding: 14px 24px;
+  background: rgba(16, 11, 8, 0.4);
+  border-bottom-color: rgba(191, 167, 106, 0.14);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.arcane-navbar ul {
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+.arcane-navbar.is-scrolled ul {
+  opacity: 0.35;
+  filter: blur(0.6px);
+}
+
+/* Üzerine gelince ya da klavyeyle odaklanınca yazılar netleşir, zemin koyulaşır */
+.arcane-navbar.is-scrolled:hover,
+.arcane-navbar.is-scrolled:focus-within {
+  background: rgba(16, 11, 8, 0.92);
+  border-bottom-color: rgba(191, 167, 106, 0.25);
+}
+
+.arcane-navbar.is-scrolled:hover ul,
+.arcane-navbar.is-scrolled:focus-within ul {
+  opacity: 1;
+  filter: none;
 }
 
 .arcane-navbar ul {
@@ -80,6 +114,16 @@
 @media (max-width: 600px) {
   .arcane-navbar {
     padding: 20px 12px 0;
+  }
+
+  .arcane-navbar.is-scrolled {
+    padding: 10px 12px;
+  }
+
+  /* Dokunmatik ekranda "üzerine gelme" olmadığı için yazılar daha görünür kalır */
+  .arcane-navbar.is-scrolled ul {
+    opacity: 0.7;
+    filter: none;
   }
 
   .arcane-navbar ul {

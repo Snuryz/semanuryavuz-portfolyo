@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import BlogPost, ContactMessage, Project
+from .models import BlogPost, Category, ContactMessage, Project
 
 
 class ProjectListSerializer(serializers.ModelSerializer):
@@ -36,14 +36,30 @@ class ProjectDetailSerializer(ProjectListSerializer):
         return self._neighbour(obj, 1)
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    post_count = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Category
+        fields = ["slug", "name", "description", "creator_label", "post_count"]
+
+
+class CategoryBriefSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["slug", "name", "creator_label"]
+
+
 class BlogPostListSerializer(serializers.ModelSerializer):
     reading_minutes = serializers.IntegerField(read_only=True)
+    category = CategoryBriefSerializer(read_only=True)
 
     class Meta:
         model = BlogPost
         fields = [
             "id", "slug", "title", "category", "excerpt", "cover",
             "published_at", "reading_minutes",
+            "work_title", "work_creator", "work_year", "rating",
         ]
 
 

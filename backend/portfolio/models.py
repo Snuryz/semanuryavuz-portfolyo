@@ -73,10 +73,41 @@ class Project(models.Model):
         return [t.strip() for t in self.tags.split(",") if t.strip()]
 
 
+class Category(models.Model):
+    name = models.CharField("Ad", max_length=60, unique=True)
+    slug = models.SlugField(max_length=80, unique=True, blank=True)
+    description = models.CharField(
+        "Açıklama", max_length=240, blank=True,
+        help_text="Blog sayfasında bu kategori seçilince başlığın altında görünür.",
+    )
+    creator_label = models.CharField(
+        "Eser sahibi etiketi", max_length=30, blank=True,
+        help_text="Bu kategorideki yazılar bir eser hakkındaysa: Kitaplar için 'Yazar', "
+                  "Filmler için 'Yönetmen'. Boş bırakılırsa eser bilgisi kutusu gösterilmez.",
+    )
+    order = models.PositiveIntegerField("Sıra", default=0, help_text="Küçük sayı önce gelir.")
+
+    class Meta:
+        ordering = ["order", "name"]
+        verbose_name = "Blog kategorisi"
+        verbose_name_plural = "Blog kategorileri"
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = unique_slug(self, self.name)
+        super().save(*args, **kwargs)
+
+
 class BlogPost(models.Model):
     title = models.CharField("Başlık", max_length=200)
     slug = models.SlugField(max_length=220, unique=True, blank=True)
-    category = models.CharField("Kategori", max_length=60, blank=True)
+    category = models.ForeignKey(
+        Category, verbose_name="Kategori", null=True, blank=True,
+        on_delete=models.SET_NULL, related_name="posts",
+    )
     excerpt = models.CharField(
         "Özet", max_length=300,
         help_text="Listede görünen kısa giriş.",
@@ -86,7 +117,25 @@ class BlogPost(models.Model):
         help_text="Paragrafları boş satırla ayırın. '## ' ara başlık, '> ' alıntı, "
                   "``` ile başlayıp biten bloklar kod olarak gösterilir.",
     )
-    cover = models.ImageField("Kapak görseli", upload_to="blog/", blank=True)
+    cover = models.ImageField(
+        "Kapak görseli", upload_to="blog/", blank=True,
+        help_text="Kitap ve film yazılarında kitabın kapağı ya da filmin afişi.",
+    )
+
+    # Kitap / film gibi bir eser hakkındaki yazılar için (isteğe bağlı)
+    work_title = models.CharField(
+        "Eserin adı", max_length=200, blank=True,
+        help_text="Yazı bir kitap ya da film hakkındaysa adı. Boşsa eser kutusu gösterilmez.",
+    )
+    work_creator = models.CharField(
+        "Yazar / Yönetmen", max_length=150, blank=True,
+    )
+    work_year = models.PositiveSmallIntegerField("Eserin yılı", null=True, blank=True)
+    rating = models.PositiveSmallIntegerField(
+        "Puanım", null=True, blank=True,
+        choices=[(i, "★" * i + "☆" * (5 - i)) for i in range(1, 6)],
+    )
+
     is_published = models.BooleanField("Yayında", default=True)
     published_at = models.DateTimeField("Yayın tarihi", default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)

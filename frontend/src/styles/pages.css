@@ -67,6 +67,29 @@
   transform: translateX(-4px);
 }
 
+/* Başlık altındaki sayaç: "03 proje ✦ 04 teknoloji" */
+.works-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+  font-family: var(--font-caps);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+}
+
+.works-count span:not(.works-count-star) {
+  color: var(--gold);
+}
+
+.works-count-star {
+  margin: 0 8px;
+  font-size: 0.55rem;
+  color: var(--gold-soft);
+}
+
 /* Etiket / kategori filtresi */
 .filter-bar {
   display: flex;

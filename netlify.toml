@@ -1,0 +1,10 @@
+# Netlify bu dosyayı okuyup ayarları kendisi yapar.
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "build"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Backend adresi Netlify panelinden girilir:
+  # Site configuration > Environment variables > REACT_APP_API_URL

@@ -13,7 +13,7 @@ const JournalList = ({ posts }) => (
         </span>
         <div className="entry-body">
           <span className="entry-category">
-            {post.category && <>{post.category} · </>}
+            {post.category && <>{post.category.name} · </>}
             <time dateTime={post.published_at}>{formatDate(post.published_at)}</time>
           </span>
           <h3 className="entry-title">

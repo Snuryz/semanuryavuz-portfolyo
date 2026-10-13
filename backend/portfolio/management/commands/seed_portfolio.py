@@ -14,7 +14,7 @@ from django.core.files import File
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from portfolio.models import BlogPost, Project
+from portfolio.models import BlogPost, Category, Project
 
 ASSETS = Path(settings.BASE_DIR).parent / "frontend" / "src" / "assets"
 
@@ -95,7 +95,7 @@ class Command(BaseCommand):
                 continue
             post = BlogPost.objects.create(
                 title=data["title"],
-                category=data["category"],
+                category=Category.objects.get_or_create(name=data["category"])[0],
                 excerpt=data["excerpt"],
                 content=f"{data['excerpt']}\n\n## Taslak\n\n{DEMO_NOTE}",
                 published_at=timezone.now() - timedelta(days=data["days_ago"]),

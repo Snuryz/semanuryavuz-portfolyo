@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import useApi from "../hooks/useApi";
+import usePageMeta from "../hooks/usePageMeta";
 import RichText from "../components/RichText";
 import StatusMessage from "../components/StatusMessage";
 import "../styles/pages.css";
@@ -9,6 +10,7 @@ import "./projectDetails.css";
 const ProjectDetail = () => {
   const { slug } = useParams();
   const { data: project, loading, error } = useApi(`/projects/${slug}/`);
+  usePageMeta(project?.title, project?.summary);
 
   return (
     <div className="page page--projects">
