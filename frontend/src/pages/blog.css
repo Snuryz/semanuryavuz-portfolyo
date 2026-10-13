@@ -1,0 +1,216 @@
+/* ---------- Blog: günce ---------- */
+.blog-container {
+  position: relative;
+  padding: 130px 24px 160px;
+  background: var(--grain),
+    linear-gradient(
+      180deg,
+      var(--seam-projects-blog) 0%,
+      #0f0d0a 30%,
+      #100d0a 60%,
+      var(--seam-blog-contact) 100%
+    );
+  background-size: 220px 220px, auto;
+}
+
+/* Koyu zemin üzerine altın çizgili çiçekler, duvar kâğıdı gibi döşenir.
+   Üst ve alt kenarı maskeyle tamamen şeffaflaşır, böylece komşu
+   bölümlere kesintisiz bağlanır */
+.blog-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      ellipse 50% 48% at 50% 55%,
+      rgba(8, 7, 5, 0.6),
+      transparent 85%
+    ),
+    url("../assets/blog-bg.webp") center top / 560px auto repeat;
+  /* Bordoyu söndürür; altın çizgiler koyu zeminde bronz gibi kalır */
+  filter: brightness(0.5) saturate(0.4);
+  opacity: 0.85;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 14%,
+    #000 34%,
+    #000 72%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 14%,
+    #000 34%,
+    #000 72%,
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.blog-container > * {
+  position: relative;
+  z-index: 2;
+}
+
+.journal {
+  max-width: 980px;
+  margin: 0 auto;
+  border-top: 1px solid var(--gold-soft);
+}
+
+.entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  align-items: center;
+  gap: 32px;
+  padding: 38px 24px;
+  border-bottom: 1px solid var(--gold-soft);
+  transition: background 0.5s ease;
+}
+
+/* Sol kenarda beliren altın çizgi */
+.entry::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 2px;
+  height: 0;
+  background: var(--gold);
+  transform: translateY(-50%);
+  transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.entry:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(191, 167, 106, 0.08),
+    rgba(191, 167, 106, 0) 80%
+  );
+}
+
+.entry:hover::before {
+  height: 70%;
+}
+
+.entry-no {
+  font-family: var(--font-caps);
+  font-size: 2.6rem;
+  color: rgba(191, 167, 106, 0.55);
+  text-align: center;
+  transition: color 0.4s ease;
+}
+
+.entry:hover .entry-no {
+  color: var(--gold);
+}
+
+.entry-category {
+  font-family: var(--font-caps);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.entry-title {
+  margin: 8px 0 8px;
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.entry-title a {
+  color: var(--cream);
+  text-decoration: none;
+}
+
+/* Kartın tamamını tıklanabilir yap */
+.entry-title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.entry-title a:focus-visible {
+  outline: none;
+}
+
+.entry:focus-within {
+  outline: 1px solid var(--gold);
+  outline-offset: -1px;
+}
+
+.entry-excerpt {
+  font-family: var(--font-reading);
+  font-size: 1.06rem;
+  line-height: 1.75;
+  color: var(--text-reading);
+  max-width: 560px;
+}
+
+.entry-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-caps);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.entry-link span {
+  display: inline-block;
+  transition: transform 0.4s ease;
+}
+
+.entry:hover .entry-link {
+  color: var(--gold);
+}
+
+.entry:hover .entry-link span {
+  transform: translateX(6px);
+}
+
+@media (max-width: 760px) {
+  .blog-container {
+    padding: 100px 16px 110px;
+  }
+
+  .entry {
+    grid-template-columns: 56px 1fr;
+    gap: 18px;
+    padding: 30px 12px;
+  }
+
+  .entry-no {
+    font-size: 1.8rem;
+    align-self: start;
+  }
+
+  .entry-link {
+    grid-column: 2;
+  }
+
+  .entry-title {
+    font-size: 1.6rem;
+  }
+}
+
+.blog-more-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.blog-more-wrap .ghost-link {
+  margin-top: 72px;
+}

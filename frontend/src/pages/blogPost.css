@@ -1,0 +1,80 @@
+/* ---------- Blog yazısı okuma sayfası ---------- */
+.post-head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.post-head .section-title {
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+}
+
+.post-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-caps);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-reading);
+}
+
+.post-meta span {
+  font-size: 0.55rem;
+  color: var(--gold);
+}
+
+.post-cover {
+  margin: 0 0 56px;
+  border: 1px solid var(--gold-soft);
+  padding: 8px;
+}
+
+.post-cover img {
+  display: block;
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+}
+
+/* İlk paragraf altın süs harfiyle başlar */
+.post-body > p:first-child::first-letter {
+  float: left;
+  font-family: var(--font-caps);
+  font-size: 4.2em;
+  line-height: 0.8;
+  margin: 0.08em 0.12em 0 0;
+  color: var(--gold);
+}
+
+.post-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  margin-top: 80px;
+}
+
+.post-footer-star {
+  color: var(--gold);
+  letter-spacing: 1.2em;
+  margin-right: -1.2em;
+}
+
+.post-footer-star::before {
+  content: "✦ ";
+}
+
+.post-footer-star::after {
+  content: " ✦";
+}
+
+/* Okuma sayfasında desen metnin arkasında daha geri planda kalır */
+.page--reading::before {
+  filter: brightness(0.22) saturate(0.3);
+}
+
+.post-body {
+  max-width: 760px;
+  margin: 0 auto;
+}

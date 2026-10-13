@@ -1,0 +1,99 @@
+/* ---------- Üst menü ---------- */
+.arcane-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 30px 24px 0;
+  background: transparent;
+}
+
+.arcane-navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 52px;
+}
+
+.arcane-navbar li {
+  position: relative;
+}
+
+/* Linkler arasında küçük altın yıldız (boşluğun tam ortasında) */
+.arcane-navbar li + li::before {
+  content: "✦";
+  position: absolute;
+  top: 50%;
+  left: -26px;
+  transform: translate(-50%, -50%);
+  font-size: 0.6rem;
+  line-height: 1;
+  color: rgba(191, 167, 106, 0.45);
+}
+
+.arcane-navbar a {
+  position: relative;
+  display: inline-block;
+  padding: 6px 0;
+  font-family: var(--font-caps);
+  font-size: 0.98rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  margin-right: -0.28em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(233, 225, 204, 0.72);
+  transition: color 0.35s ease;
+}
+
+/* Ortadan iki yana açılan ince altın çizgi */
+.arcane-navbar a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: translateX(calc(-50% - 0.14em));
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.arcane-navbar a:hover,
+.arcane-navbar a:focus-visible {
+  color: var(--gold);
+  outline: none;
+}
+
+.arcane-navbar a:hover::after,
+.arcane-navbar a:focus-visible::after {
+  width: calc(100% - 0.28em);
+}
+
+@media (max-width: 600px) {
+  .arcane-navbar {
+    padding: 20px 12px 0;
+  }
+
+  .arcane-navbar ul {
+    gap: 8px 22px;
+  }
+
+  /* Satırlar kırıldığında yıldızlar madde işareti gibi durmasın */
+  .arcane-navbar li + li::before {
+    display: none;
+  }
+
+  .arcane-navbar a {
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    margin-right: -0.18em;
+  }
+}

@@ -1,0 +1,217 @@
+/* home.css */
+
+/* Genel Home Stilleri */
+.home {
+  text-align: center;
+  padding: 40px;
+  background-color: #f8f8f8;
+}
+
+.home h1 {
+  color: #333;
+  font-size: 36px;
+}
+
+.home ul {
+  list-style: none;
+  padding: 0;
+}
+
+.home li {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+/* Giriş çiçek görseli. Alt kenarı PNG'deki çiçek silüetiyle biter.
+   Yüksekliği Hakkımda bölümü de kullanır (metin görselin altından başlar) */
+:root {
+  --hero-image-height: 800px;
+}
+
+.home-item-one {
+  position: absolute;
+  top: 60vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  height: var(--hero-image-height);
+  background-image: url("../assets/start.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 8px 8px 0 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.home-item-one::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
+}
+
+/* Video Arka Plan */
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  will-change: opacity, transform;
+}
+
+/* Home Container ve Overlay */
+.home-container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(38, 7, 0, 1);
+  opacity: 0.85;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px); /* Safari desteği için */
+  z-index: -1;
+  pointer-events: none;
+  transition:
+    opacity 1.2s cubic-bezier(0.77, 0, 0.175, 1),
+    backdrop-filter 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: opacity, transform;
+}
+
+/* Alt kenarda bordodan Hakkımda bölümünün siyahına yumuşak geçiş */
+.home-container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 55%;
+  background: linear-gradient(
+    180deg,
+    rgba(1, 3, 0, 0) 0%,
+    rgba(1, 3, 0, 0.35) 35%,
+    rgba(1, 3, 0, 0.8) 70%,
+    #010300 100%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+.home-container.scrolled::before {
+  opacity: 1;
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(2.5px); /* Safari desteği için */
+}
+
+/* Portfolio Başlık
+   Çiçek görselinin (top: 60vh) hemen üstüne yaslanır */
+.portfolio-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(40vh + 22px);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-caps);
+  font-size: clamp(0.65rem, 1vw, 0.8rem);
+  letter-spacing: 0.55em;
+  /* Son harften sonraki boşluğu dengeler, yazı tam ortalanır */
+  margin-right: -0.55em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.portfolio-title h1 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(2.4rem, 7.2vw, 6.4rem);
+  line-height: 1;
+  letter-spacing: 0.14em;
+  margin-right: -0.14em;
+  text-transform: uppercase;
+  color: #f4ede1;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Uçlara doğru solan ince altın çizgi, ortasında Altair yıldızı */
+.hero-rule {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: min(760px, 86%);
+  margin-top: 22px;
+  color: var(--gold);
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.hero-rule::before,
+.hero-rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.hero-rule::after {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+@media (max-width: 600px) {
+  .hero-eyebrow {
+    letter-spacing: 0.4em;
+    margin-right: -0.4em;
+  }
+
+  .portfolio-title h1 {
+    letter-spacing: 0.08em;
+    margin-right: -0.08em;
+  }
+}
+
+/* Ekstra: Başlık için gölge efekti (isteğe bağlı, aktif değil) */
+/* 
+.portfolio-title h1::before {
+  content: 'PORTFOLYO';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  color: #8B0000;
+  z-index: -1;
+  opacity: 0.3;
+}
+*/
+@media (max-width: 760px) {
+  :root {
+    --hero-image-height: 560px;
+  }
+}

@@ -1,0 +1,117 @@
+.about-container {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  min-height: 110vh;
+  /* Metin, giriş görselinin (60vh'den başlar) bittiği yerden başlar;
+     böylece çiçekler yazıların arkasına girmez */
+  padding: max(60px, calc(var(--hero-image-height) - 40vh + 70px)) 20px 160px;
+  /* Siyah zemin .main-content'ten gelir; görselin bölüme taşan kısmı görünür kalır */
+  background: transparent;
+  /* Projeler bölümünün kesirli piksel üst kenarını örter (ince çizgi oluşmasın) */
+  z-index: 3;
+  margin-top: -1px;
+  box-shadow: 0 3px 0 #010300;
+}
+
+.about-content {
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-content .about-head {
+  margin-bottom: 40px;
+}
+
+/* İlk paragraf: italik, büyük giriş cümlesi */
+.about-lead {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+  line-height: 1.55;
+  text-align: center;
+  color: var(--cream);
+  max-width: 1100px;
+}
+
+.about-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: min(320px, 70%);
+  margin: 44px 0;
+  color: var(--gold);
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.about-divider::before,
+.about-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-soft));
+}
+
+.about-divider::after {
+  background: linear-gradient(90deg, var(--gold-soft), transparent);
+}
+
+.about-body {
+  max-width: 1180px;
+}
+
+.about-body p {
+  font-family: var(--font-reading);
+  font-size: 1.22rem;
+  line-height: 1.95;
+  color: var(--text-reading);
+  text-align: left;
+}
+
+.about-body p + p {
+  margin-top: 1.4em;
+}
+
+/* "Altair" paragrafı altın bir süs harfiyle başlar */
+.about-dropcap::first-letter {
+  float: left;
+  font-family: var(--font-caps);
+  font-size: 4.2em;
+  line-height: 0.8;
+  margin: 0.08em 0.12em 0 0;
+  color: var(--gold);
+}
+
+.about-signature {
+  width: 100%;
+  max-width: 1180px;
+  text-align: right;
+  margin-top: 40px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--gold);
+}
+
+.about-signature::before {
+  content: "— ";
+  color: var(--gold-soft);
+}
+
+@media (max-width: 760px) {
+  .about-body p {
+    font-size: 1.08rem;
+    line-height: 1.85;
+  }
+
+  .about-signature {
+    text-align: center;
+  }
+}

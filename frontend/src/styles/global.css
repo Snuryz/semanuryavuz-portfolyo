@@ -1,0 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0e0d0a;
+}
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* background-image: url('../assets/layout.jpg'); */
+  /* background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
+}
+
+/* .layout::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(33 6 1);
+  z-index: 1;
+} */
+
+.main-content {
+  flex: 1;
+  background: #010300;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+} 
+
+/* ---------- Ortak tema değişkenleri ---------- */
+:root {
+  --gold: #bfa76a;
+  --gold-soft: rgba(191, 167, 106, 0.45);
+  --cream: #e9e1cc;
+  --cream-muted: #ccc3ab;
+  --ink: #1b1813;
+  --bordeaux: #4a120c;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-caps: "Cinzel", "Cormorant Garamond", serif;
+  /* Uzun metinler (blog) için okunaklı yazı tipi ve daha açık renk */
+  --font-reading: "Lora", Georgia, serif;
+  --text-reading: #ddd4be;
+
+  /* Bölüm geçiş renkleri: bir bölümün bitişi, sonrakinin başlangıcıdır */
+  --seam-projects-blog: #110f0b;
+  --seam-blog-contact: #110b09;
+
+  /* İnce kâğıt dokusu */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.75 0 0 0 0 0.68 0 0 0 0 0.5 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Ortak bölüm başlığı ---------- */
+.section-head {
+  text-align: center;
+  margin: 0 auto 64px;
+  max-width: 640px;
+  padding: 0 16px;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-caps);
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.section-eyebrow::before,
+.section-eyebrow::after {
+  content: "";
+  width: 42px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.section-eyebrow::after {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+  line-height: 1.1;
+  color: var(--cream);
+  margin: 14px 0 16px;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.5);
+}
+
+.section-lede {
+  font-family: var(--font-reading);
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--text-reading);
+}
+
+/* Kesirli piksel sınırlarında ince çizgi oluşmasın diye
+   ardışık bölümler 1px üst üste biner */
+.projects-container,
+.blog-container,
+.contact-container {
+  margin-top: -1px;
+}
+
+/* ---------- Çerçeveli metin düğmesi ("Tüm projeler →") ---------- */
+.ghost-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-caps);
+  font-size: 0.85rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+  padding: 14px 30px;
+  border: 1px solid var(--gold-soft);
+  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+}
+
+.ghost-link span {
+  transition: transform 0.35s ease;
+}
+
+.ghost-link:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.ghost-link:hover span {
+  transform: translateX(4px);
+}
+

@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+staticfiles/
+.env
+
+# Veritabanı ve yüklenen görseller sunucuya git ile değil, bir kez elle yüklenir
+db.sqlite3
+media/
